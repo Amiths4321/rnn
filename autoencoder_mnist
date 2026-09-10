@@ -1,0 +1,49 @@
+from tensorflow import keras
+
+# Load MNIST
+(X_train, y_train), (X_test, y_test) = keras.datasets.mnist.load_data()
+
+# Normalize pixels
+X_train = X_train.astype("float32") / 255.0
+X_test = X_test.astype("float32") / 255.0
+
+# Flatten 28x28 → 784
+X_train = X_train.reshape(-1, 784)
+X_test = X_test.reshape(-1, 784)
+
+print("Training shape:", X_train.shape)
+print("Test shape:", X_test.shape)
+
+
+# -----------------------------------
+# Autoencoder
+# -----------------------------------
+
+model = keras.Sequential([
+
+    # Encoder
+    keras.layers.Input(shape=(784,)),
+    keras.layers.Dense(128, activation="relu"),
+    keras.layers.Dense(32, activation="relu"),
+
+    # Decoder
+    keras.layers.Dense(128, activation="relu"),
+    keras.layers.Dense(784, activation="sigmoid")
+])
+
+
+# Compile
+model.compile(
+    optimizer="adam",
+    loss="binary_crossentropy"
+)
+
+
+# Train
+model.fit(
+    X_train,
+    X_train,
+    epochs=10,
+    batch_size=128,
+    validation_split=0.1
+)
