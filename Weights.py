@@ -1,4 +1,5 @@
 from tensorflow import keras
+import matplotlib.pyplot as plt
 
 # Define or load your trained model first so 'model' exists
 model = keras.Sequential([
@@ -12,3 +13,14 @@ weights, biases = model.layers[1].get_weights()
 
 print("Weights:", weights)
 print("Biases:", biases)
+
+# plt.imshow(
+#     weights[:, 0].reshape(28, 28),
+#     cmap="gray"
+# )
+
+plt.title("Feature Learned by Neuron 1")
+plt.axis("off")
+
+# plt.show()
+
