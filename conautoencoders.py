@@ -55,4 +55,12 @@ model.compile(
     loss="binary_crossentropy"
 )
 
+model.fit(
+    X_train,
+    X_train,
+    epochs=5,
+    batch_size=128,
+    validation_split=0.1
+)
+
 model.summary()
